@@ -2,6 +2,7 @@ package com.felipesantos.projetosecurity.model;
 
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
@@ -15,84 +16,50 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(unique = true)
     private String username;
-
-    @Column(name = "fullname")
-    private String fullName;
-
-    @Column
     private String password;
-
-
-    private Boolean accountNonExpired;
-
-    private Boolean accountNonLocked;
-
-    private Boolean credentialsNonExpired;
-
-    private Boolean enabled;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_permission",
-        joinColumns = {@JoinColumn (name = "id_user")},
-            inverseJoinColumns = {@JoinColumn(name = "id_permission")}
-    )
-    private List<Permission> permissions;
+    private Role role;
 
     public User() {
     }
 
-    public List<String> getRoles(){
-        List<String> roles = new ArrayList<>();
-        for (Permission permission: permissions){
-            roles.add(permission.getDescription());
-        }
-        return roles;
-    }
-
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.permissions;
+        if(this.role == Role.ADMIN) return List.of(new SimpleGrantedAuthority("ADMIN"), new SimpleGrantedAuthority("USER"));
+        else return List.of(new SimpleGrantedAuthority("USER"));
     }
 
-    @Override
-    public String getPassword() {
-        return this.password;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
     public String getUsername() {
-        return this.username;
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
-    public boolean isAccountNonExpired() {
-        return this.accountNonExpired;
+    public String getPassword() {
+        return password;
     }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return this.accountNonLocked;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return this.credentialsNonExpired;
+    public Role getRole() {
+        return role;
     }
 
-    @Override
-    public boolean isEnabled() {
-        return this.enabled;
-    }
-
-    public List<Permission> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(List<Permission> permissions) {
-        this.permissions = permissions;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
