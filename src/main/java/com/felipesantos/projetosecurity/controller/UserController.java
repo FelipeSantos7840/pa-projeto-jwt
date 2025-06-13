@@ -1,6 +1,7 @@
 package com.felipesantos.projetosecurity.controller;
 
 import com.felipesantos.projetosecurity.dto.UserDTO;
+import com.felipesantos.projetosecurity.service.RegisterService;
 import com.felipesantos.projetosecurity.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,8 @@ import java.util.List;
 public class UserController {
     @Autowired
     UserService userService;
+    @Autowired
+    RegisterService registerService;
 
     @GetMapping
     public ResponseEntity<List<UserDTO>> findAll(){
@@ -23,7 +26,7 @@ public class UserController {
 
     @PostMapping("/create")
     public ResponseEntity<UserDTO> create(@RequestBody UserDTO dto){
-        UserDTO response = userService.create(dto);
+        UserDTO response = registerService.create(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId())
                         .toUri();
         return ResponseEntity.created(uri).body(dto);

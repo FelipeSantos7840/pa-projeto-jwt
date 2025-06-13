@@ -17,8 +17,6 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -29,15 +27,5 @@ public class UserService implements UserDetailsService {
 
     public List<UserDTO> findAll(){
         return List.of();
-    }
-
-    public UserDTO create(UserDTO dto){
-        User user = new User();
-        user.setPassword(passwordEncoder.encode(dto.getPassword()));
-        user.setUsername(dto.getUsername());
-        user.setRole(dto.getRole());
-
-        userRepository.save(user);
-        return dto;
     }
 }
