@@ -59,10 +59,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         authorizeHttpRequest -> authorizeHttpRequest
                                 .requestMatchers(
-                                        "/auth/singin"
+                                        "/auth/login",
+                                        "/user/create"
                                 ).permitAll()
                                 .requestMatchers(
-                                        "/auth/users"
+                                        "/user"
                                 ).hasRole("ADMIN")
                                 .anyRequest()
                                 .denyAll()
