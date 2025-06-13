@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService implements UserDetailsService {
     @Autowired
@@ -23,6 +25,10 @@ public class UserService implements UserDetailsService {
         User user = userRepository.findByUsername(username);
         if (user != null) return user;
         else throw new UsernameNotFoundException("Username "+username+" not found!");
+    }
+
+    public List<UserDTO> findAll(){
+        return List.of();
     }
 
     public UserDTO create(UserDTO dto){

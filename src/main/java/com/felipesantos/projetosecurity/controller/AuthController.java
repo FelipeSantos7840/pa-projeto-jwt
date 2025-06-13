@@ -26,7 +26,7 @@ public class AuthController {
 
         TokenDTO token = authService.login(dto);
 
-        if(token == null) ResponseEntity.status(HttpStatus.FORBIDDEN).body("Inavlid Client Request");
+        if(token == null) ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid Client Request");
 
         return ResponseEntity.ok(token);
     }
