@@ -38,4 +38,11 @@ public class UserController {
                         .toUri();
         return ResponseEntity.created(uri).body(dto);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateById(@PathVariable Long id, @RequestBody UserDTO body){
+        UserDTO dto = registerService.update(id,body);
+        if (dto == null) return ResponseEntity.badRequest().body("No permission to see the user");
+        return ResponseEntity.ok(dto);
+    }
 }
