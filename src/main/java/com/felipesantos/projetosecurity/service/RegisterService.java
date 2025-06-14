@@ -39,7 +39,9 @@ public class RegisterService {
         User entity = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
 
         entity.setName(dto.getName());
-        entity.setPassword(passwordEncoder.encode(dto.getPassword()));
+        if (dto.getPassword() != null){
+            entity.setPassword(passwordEncoder.encode(dto.getPassword()));
+        }
         entity.setUsername(dto.getUsername());
 
         userRepository.save(entity);
