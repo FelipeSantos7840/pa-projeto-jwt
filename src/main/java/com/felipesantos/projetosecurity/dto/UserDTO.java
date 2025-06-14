@@ -1,5 +1,6 @@
 package com.felipesantos.projetosecurity.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.felipesantos.projetosecurity.model.Role;
 
 import java.io.Serializable;
@@ -10,6 +11,7 @@ public class UserDTO implements Serializable {
     private Long id;
     private String name;
     private String username;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String password;
     private Role role;
 
