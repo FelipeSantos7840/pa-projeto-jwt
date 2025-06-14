@@ -18,7 +18,7 @@ public class RegisterService {
     public UserDTO create(UserDTO dto){
         User user = new User();
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
-        user.setUsername(dto.getUsername());
+        user.setEmail(dto.getUsername());
         user.setRole(dto.getRole());
 
         userRepository.save(user);

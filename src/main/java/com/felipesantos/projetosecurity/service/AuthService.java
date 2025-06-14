@@ -30,6 +30,6 @@ public class AuthService {
 
         User user = userRepository.findByUsername(dto.getUsername());
         if (user == null) throw new UsernameNotFoundException("Username " + dto.getUsername() + " not found");
-        return tokenProvider.createAccessToken(user.getUsername(),user.getPassword());
+        return tokenProvider.createAccessToken(user.getUsername(),user.getRole().getRole());
     }
 }

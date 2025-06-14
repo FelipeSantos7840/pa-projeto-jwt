@@ -8,6 +8,7 @@ public class UserDTO implements Serializable {
     private static final  long serialVersionUID = 1l;
 
     private Long id;
+    private String name;
     private String username;
     private String password;
     private Role role;
@@ -45,5 +46,13 @@ public class UserDTO implements Serializable {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

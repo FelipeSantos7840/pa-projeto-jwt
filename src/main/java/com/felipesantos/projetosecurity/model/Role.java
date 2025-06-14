@@ -1,8 +1,8 @@
 package com.felipesantos.projetosecurity.model;
 
 public enum Role {
-    ADMIN("admin"),
-    USER("user");
+    ADMIN("ROLE_ADMIN"),
+    USER("ROLE_USER");
 
     private String role;
 

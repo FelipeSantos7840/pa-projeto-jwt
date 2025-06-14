@@ -52,6 +52,7 @@ public class SecurityConfig {
         return http
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()))
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -59,6 +60,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         authorizeHttpRequest -> authorizeHttpRequest
                                 .requestMatchers(
+                                        "/h2-console/**",
                                         "/auth/login",
                                         "/user/create"
                                 ).permitAll()
