@@ -24,6 +24,13 @@ public class UserController {
         return ResponseEntity.ok(userService.findAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable Long id){
+        UserDTO dto = userService.findById(id);
+        if(dto == null) return ResponseEntity.badRequest().body("No permission to see the user");
+        return ResponseEntity.ok(dto);
+    }
+
     @PostMapping("/create")
     public ResponseEntity<UserDTO> create(@RequestBody UserDTO dto){
         UserDTO response = registerService.create(dto);
