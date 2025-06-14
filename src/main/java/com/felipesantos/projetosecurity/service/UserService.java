@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +25,21 @@ public class UserService implements UserDetailsService {
     }
 
     public List<UserDTO> findAll(){
-        return List.of();
+        List<User> users = userRepository.findAll();
+
+        List<UserDTO> userDTOs = users.stream().map(
+                (entity) -> {
+                    UserDTO dto = new UserDTO();
+                    dto.setId(entity.getId());
+                    dto.setName(entity.getName());
+                    dto.setUsername(entity.getUsername());
+                    dto.setPassword(entity.getPassword());
+                    dto.setRole(entity.getRole());
+                    return dto;
+                }
+        ).toList();
+
+
+        return userDTOs;
     }
 }
