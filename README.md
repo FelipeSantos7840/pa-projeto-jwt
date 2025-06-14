@@ -115,5 +115,3 @@ Todos os endpoints (exceto `/auth/login` e `/user/create`) exigem o token JWT no
 |--------|------------------|
 | `ADMIN` | Pode acessar, editar e deletar **qualquer usuário** |
 | `USER`  | Pode acessar e editar **apenas o próprio perfil** |
-
-- Felipe dos Santos
